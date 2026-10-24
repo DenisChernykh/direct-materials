@@ -1,0 +1,2 @@
+CREATE INDEX deliveries_campaign_public_reply_created_idx
+ON deliveries(campaign_id, public_reply_status, created_at);

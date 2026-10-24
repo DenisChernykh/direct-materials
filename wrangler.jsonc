@@ -1,0 +1,52 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tanyastrelchuk-direct-materials",
+  "account_id": "fea14cf8206b351235c198dd62b1d566",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-26",
+  "workers_dev": true,
+  "assets": {
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/api/*",
+      "/admin",
+      "/admin/*",
+      "/oauth/*",
+      "/webhooks/*",
+      "/health",
+    ],
+  },
+  "vars": {
+    "PUBLIC_BASE_URL": "https://tanyastrelchuk-direct-materials.instagram-material-delivery.workers.dev",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tanyastrelchuk-direct-materials",
+      "database_id": "1306f173-e0ba-4710-be35-1463c8cf06f9",
+    },
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "INSTAGRAM_EVENTS",
+        "queue": "tanyastrelchuk-instagram-events",
+      },
+    ],
+    "consumers": [
+      {
+        "queue": "tanyastrelchuk-instagram-events",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_retries": 3,
+      },
+    ],
+  },
+  "observability": {
+    "enabled": true,
+  },
+  "triggers": {
+    "crons": ["17 3 * * *"],
+  },
+}

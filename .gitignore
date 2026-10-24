@@ -1,0 +1,13 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+dist/
+coverage/
+worker-configuration.d.ts
+*.log
+.DS_Store
+.pnpm-store/
+.env.local
+.env.production
+!*.example
